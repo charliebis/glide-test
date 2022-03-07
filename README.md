@@ -13,13 +13,19 @@ Calorie Data Viewer App.
 
 
     [general]
+    
     installation_path = YOUR_PROJECT_ROOT_PATH
+    
     site_url = YOUR_SITE_ROOT_URL
     
     [database]
+    
     db_host = YOUR_DB_HOST
+    
     db_database = YOUR_DB_DATABASE
+    
     db_user = YOUR_DB_USER
+    
     db_pass = 'YOUR_DB_PASS'
 
 
