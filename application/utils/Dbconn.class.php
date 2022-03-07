@@ -1,9 +1,9 @@
 <?php
-
-
 /**
  * Class Dbconn
  */
+
+
 class Dbconn
 {
     /**
@@ -55,9 +55,6 @@ class Dbconn
     }
 
 
-    /**
-     *
-     */
     public function connect()
     {
         try

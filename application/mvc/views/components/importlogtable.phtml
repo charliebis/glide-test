@@ -1,0 +1,31 @@
+<?= $this->partial('components/partials/datatabletotal.phtml'); ?>
+<?php if($this->pageData['total_data_items'] > 0): ?>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Start</th>
+            <th>End</th>
+            <th>Duration</th>
+            <th>Total Records In CSV</th>
+            <th>Total Records Saved To DB</th>
+            <th>Total Areas Failed To Parse</th>
+            <th>Total Areas Failed To Save</th>
+            <th>Total Calorie Data Items Failed To Save</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->pageData['table_data'] as $i => $item): ?>
+            <tr>
+                <td><?= $item['process_start'] ?></td>
+                <td><?= $item['process_end'] ?></td>
+                <td><?= $item['process_duration'] ?></td>
+                <td><?= $item['total_records'] ?></td>
+                <td><?= $item['total_saved'] ?></td>
+                <td><?= $item['total_failed_area_parse'] ?></td>
+                <td><?= $item['total_failed_area_save'] ?></td>
+                <td><?= $item['total_failed_calorie_data_save'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>

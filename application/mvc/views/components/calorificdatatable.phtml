@@ -1,0 +1,27 @@
+<?= $this->partial('components/partials/datatabletotal.phtml'); ?>
+<?php if($this->pageData['total_data_items'] > 0): ?>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Applicable At</th>
+            <th>Applicable For</th>
+            <th>Area</th>
+            <th>Value</th>
+            <th>Generated Time</th>
+            <th>Quality Indicator</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->pageData['table_data'] as $i => $item): ?>
+            <tr>
+                <td><?= $item['applicable_at'] ?></td>
+                <td><?= $item['applicable_for'] ?></td>
+                <td><?= $item['area'] ?></td>
+                <td><?= $item['value'] ?></td>
+                <td><?= $item['generated_time'] ?></td>
+                <td><?= $item['quality_indicator_full'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>

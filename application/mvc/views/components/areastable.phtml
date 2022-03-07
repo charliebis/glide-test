@@ -1,0 +1,21 @@
+<?= $this->partial('components/partials/datatabletotal.phtml'); ?>
+<?php if($this->pageData['total_data_items'] > 0): ?>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Area</th>
+            <th># Calorific Data Items</th>
+            <th>Average Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->pageData['table_data'] as $i => $item): ?>
+            <tr>
+                <td><?= $item['area'] ?></td>
+                <td><?= $item['total_calorific_data_items'] ?> <a href="#" class="btn-area-chart" id="btn-area-chart_<?= $item['id'] ?>" data-areaid="<?= $item['id'] ?>" data-area="<?= $item['area'] ?>" title="View Area Data Items Chart"><img src="/img/icon_barchart.png" width="16" height="16" alt="View Area Data Items Chart" /></a></td>
+                <td><?= $item['average_value'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>

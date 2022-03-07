@@ -1,12 +1,13 @@
 <?php
 /**
- * Class GlideApp
+ * Class for this specific application. Extends the generic Application class
  *
  * @author Charles Edwards <charlie@burcottis.co.uk>
  *
  */
 
-class GlideApp extends Application
+
+class CalorieDataViewerApp extends Application
 {
 
     public function __construct()

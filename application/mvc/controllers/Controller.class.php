@@ -1,23 +1,30 @@
 <?php
 /**
- * Class Controller
+ * Controller - Base controller class, common to all controllers
  *
  * @author Charles Edwards <charlie@burcottis.co.uk>
  *
  */
 
+
 class Controller
 {
+
+    protected $application;
+
     public $output = '';
-    public $pageDataItems = [];
+    public $pageData = [];
     public $viewsDir = false;
     public $displayFullErrors = false;
 
 
-    public function __construct()
+    public function __construct($application)
     {
+        $this->application = $application;
+        //  Start capturing output. Outputted in __destruct()
         ob_start();
     }
+
 
     public function __destruct()
     {
@@ -26,6 +33,10 @@ class Controller
         echo $this->output;
     }
 
+
+    /**
+     * Renders a partial template
+     */
     public function partial($partial)
     {
         if (!file_exists($this->viewsDir . '/' . $partial))
@@ -37,6 +48,10 @@ class Controller
         return ob_get_clean();
     }
 
+
+    /**
+     * Handles HTTP errors that occur in this app
+     */
     public function throwHttpError($code = 404, $debugMessage = false)
     {
         if (ob_get_level())

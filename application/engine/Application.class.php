@@ -1,6 +1,7 @@
 <?php
 /**
- * Class Application
+ * Main application engine. Extended by the specific application's class. That application's class is then
+ * instantiated in the site's index page to start the app
  *
  * @author Charles Edwards <charlie@burcottis.co.uk>
  *
@@ -38,6 +39,9 @@ abstract class Application
     }
 
 
+    /**
+     * Autoloads the controller classes
+     */
     public function autoLoaderControllers($class)
     {
         $classFile = dirname(__FILE__) . '/../mvc/controllers/' . $class . '.class.php';
@@ -46,6 +50,9 @@ abstract class Application
     }
 
 
+    /**
+     * Autoloads the model classes
+     */
     public function autoLoaderModels($class)
     {
         $classFile = dirname(__FILE__) . '/../mvc/models/' . $class . '.class.php';
@@ -54,6 +61,9 @@ abstract class Application
     }
 
 
+    /**
+     * Autoloads the utils classes
+     */
     public function autoLoaderUtils($class)
     {
         $classFile = dirname(__FILE__) . '/../utils/' . $class . '.class.php';
@@ -62,6 +72,10 @@ abstract class Application
     }
 
 
+    /**
+     * Loads the config INI file and adds the information to the configSettings array. Config fields are used
+     * anywhere in the app
+     */
     public function loadConfig()
     {
         //  Config settings
@@ -90,6 +104,9 @@ abstract class Application
     }
 
 
+    /**
+     * Checks that the config INI file contains all the required settings for this app
+     */
     protected function checkConfig()
     {
         $missingSettings = [];
@@ -104,6 +121,9 @@ abstract class Application
     }
 
 
+    /**
+     * Gets or sets a config field in the configSettings array
+     */
     public function config($setting, $value = null)
     {
         if ($value !== null)
@@ -119,6 +139,9 @@ abstract class Application
     }
 
 
+    /**
+     * Finds the path of the config INI file
+     */
     protected function getIniFilePath($dir, $fileName)
     {
         if (file_exists($dir . '/' . $fileName))
@@ -131,6 +154,9 @@ abstract class Application
     }
 
 
+    /**
+     * Initialise the app. Not known at this point if using app for web front end of script
+     */
     public function init()
     {
         //  Check all required config settings are in place
@@ -146,11 +172,13 @@ abstract class Application
             'db_pass'     => $this->config('db_pass')
         ]);
 
-
         return $this;
     }
 
 
+    /**
+     * Start the process for displaying the web front end
+     */
     public function loadPage()
     {
         //  Start session
@@ -163,7 +191,7 @@ abstract class Application
 
         //  Controller and action method existence has already been checked.
         //  Create controller object from variable class name
-        $this->controller = new $this->controllerName();
+        $this->controller                    = new $this->controllerName($this);
         $this->controller->displayFullErrors = $this->displayFullErrors;
         //  Set the views directory path in the controller
         $this->controller->viewsDir = $this->config('installation_path') . '/application/mvc/views/';
@@ -173,28 +201,11 @@ abstract class Application
     }
 
 
+    /**
+     * Checks and handles the page URL. Checks the controller and action exist and sets these for the app
+     */
     public function router()
     {
-        //die($_GET['route']);
-        $_GET['route'] = !empty($_GET['route']) ? $_GET['route'] : '/home/';
-        //  Check the requested route is valid
-        if (!Validator::routeFormat($_GET['route']))
-            $this->throwError(404, 'Route format invalid');
-
-        //  Set the requested route. If there is no action in the route, set to index
-        if (preg_match('%/$%', $_GET['route']))
-            $_GET['route'] = $_GET['route'] . 'index/';
-        $this->route = $_GET['route'];
-
-        //  Replace any multiple slashes with a single
-        $this->route = preg_replace('%/+%i', '/', $this->route);
-        $this->route = trim($this->route, '/');
-        $this->route = explode('/', $this->route);
-
-        //  Check route length
-        if (count($this->route) < 2)
-            $this->throwError(404, 'Route does not contain the required parts');
-
         //  Autoload MVC related classes at this point as controller and action are about to be checked
         //  Controllers
         spl_autoload_register([
@@ -207,10 +218,34 @@ abstract class Application
             'autoLoaderModels'
         ]);
 
+        //die($_GET['route']);
+        $_GET['route'] = !empty($_GET['route']) ? $_GET['route'] : '/home/';
+        //  Check the requested route is valid
+        if (!Validator::routeFormat($_GET['route']))
+            $this->throwError(404, 'Route format invalid');
+
+        //  Replace any multiple slashes with a single
+        $_GET['route'] = preg_replace('%/+%i', '/', $_GET['route']);
+        $_GET['route'] = trim($_GET['route'], '/');
+        $_GET['route'] = explode('/', $_GET['route']);
+
+        //  Set the requested route. If there is no action in the route, set to index
+        if (count($_GET['route']) == 1)
+            $_GET['route'][1] = 'index';
+
+        $this->route = $_GET['route'];
+
+        //  Check route length
+        if (count($this->route) < 2)
+            $this->throwError(404, 'Route does not contain the required parts');
+
         //  Get the name of the controller and action method to use
         $actionRoute = $this->route;
         $controller  = array_shift($actionRoute);
+        $controller  = preg_replace('/[-_]/', ' ', $controller);
         $controller  = ucwords($controller);
+        $controller  = preg_replace('/\s/', '', $controller);
+
         //  First part of the route represents the controller
         //  Check the controller class exists
         if (!class_exists($controller . 'Controller'))
@@ -230,10 +265,13 @@ abstract class Application
     }
 
 
+    /**
+     * Handles errors that occur in this app
+     */
     public function throwError($code = 404, $debugMessage = false)
     {
-        $controller = new Controller();
+        $controller                    = new Controller($this);
         $controller->displayFullErrors = $this->displayFullErrors;
-        $controller->throwHttpError($code, $debugMessage, $this->displayFullErrors);
+        $controller->throwHttpError($code, $debugMessage);
     }
 }

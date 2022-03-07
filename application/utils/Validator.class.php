@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class Validator
+ */
 
 
 class Validator

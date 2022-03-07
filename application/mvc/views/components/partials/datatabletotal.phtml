@@ -1,0 +1,7 @@
+<div class="data-table-total">
+    <?php if($this->pageData['total_data_items'] > 0): ?>
+        Showing <?= $this->pageData['total_data_items_formatted'] ?> rows
+    <?php else: ?>
+        There is no data in the database. Please click the Update Now button
+    <?php endif; ?>
+</div>

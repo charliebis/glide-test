@@ -2,31 +2,199 @@ body
 {
     padding          : 0;
     margin           : 0;
-    font-family      : 'Open sans',Helvetica,sans-serif;
+    font-family      : 'Open sans', Helvetica, sans-serif;
     font-size        : 100%;
-    background-color: #250D47;
+    color            : #FFFFFF;
+    background-color : #8FCFFF;
     border           : 0;
 }
 
-header {
-    margin: 10px auto;
+header
+{
+    margin           : 10px auto;
+    background-color : #21587F;
+    min-height       : 65px;
+    padding          : 20px;
+    display          : flex;
+    justify-content  : center;
+    align-items      : center;
+    align-content    : stretch;
 }
 
-header h1 {
-    margin: 10px auto;
-    padding: 0;
-    font-size: 2em;
+div#container-wrapper
+{
+    width  : 96%;
+    margin : 20px auto;
 }
 
-footer {
-    margin: 50px auto 0 auto;
-    text-align: center;
-    font-size: smaller;
+div#container-header-left,
+div#container-header-right
+{
+    flex-grow : 1;
 }
 
-div#container-wrapper {
-    width: 70%;
-    margin: 20px auto;
-    background-color: #FAF8F5;
-    padding: 20px;
+div#container-header-right
+{
+    text-align : right;
+}
+
+header h1
+{
+    margin    : 0;
+    padding   : 0;
+    font-size : 2em;
+}
+
+button#btn-update-data
+{
+    display          : inline-block;
+    margin           : 0 0 0 auto;
+    padding          : 4px 8px;
+    color            : #FFFFFF;
+    background-color : #42AFFF;
+    border           : 0;
+    font-size        : 0.6em;
+    font-weight      : bold;
+}
+
+button#btn-update-data:not(.btn-disabled):hover
+{
+    cursor           : pointer;
+    background-color : #348CCC;
+}
+
+.btn-disabled
+{
+    opacity : 0.4;
+}
+
+div#last-updated-header
+{
+    display    : inline-block;
+    text-align : right;
+    font-size  : 0.7em;
+    margin     : 0 5px 0 auto;
+}
+
+nav
+{
+    margin  : 10px auto;
+    padding : 0;
+}
+
+nav ul
+{
+    display         : flex;
+    justify-content : right;
+    align-items     : center;
+    align-content   : stretch;
+    padding         : 0;
+    margin          : 0;
+    border-bottom   : 2px solid #21587F;
+}
+
+nav ul li
+{
+    display : inline-block;
+}
+
+nav ul li a
+{
+    display          : block;
+    margin           : 0 2px 0 0;
+    padding          : 4px 8px;
+    background-color : #21587F;
+    color            : #FFFFFF;
+    text-decoration  : none;
+    font-size        : 0.8em;
+    cursor           : default;
+}
+
+nav ul li a:not(.nav-tab-active):hover
+{
+    background-color : #42AFFF;
+    cursor           : pointer;
+}
+
+nav ul li a.nav-tab-active
+{
+    background-color : #348CCC;
+}
+
+footer
+{
+    margin     : 50px auto 0 auto;
+    text-align : center;
+    font-size  : 0.7em;
+}
+
+main
+{
+    background-color : #21587F;
+    padding          : 10px 20px 10px 20px;
+}
+
+div#container-datatable
+{
+    overflow-x : auto;
+}
+
+div.data-table-total
+{
+    width       : 100%;
+    display     : block;
+    margin      : 5px auto 5px auto;
+    text-align  : center;
+    font-size   : 0.7em;
+    font-weight : bold;
+}
+
+table.data-table
+{
+    width           : 100%;
+    border          : 0;
+    border-collapse : collapse;
+}
+
+table.data-table th,
+table.data-table td
+{
+    padding    : 6px;
+    text-align : center;
+    font-size  : 0.8em;
+}
+
+table.data-table th
+{
+    background-color : #48687F;
+}
+
+table.data-table tr:nth-child(even)
+{
+    background-color : #42AFFF;
+}
+
+table.data-table tr:nth-child(odd)
+{
+    background-color : #348CCC;
+}
+
+div#box-loading
+{
+    text-align : center;
+    font-size  : 2em;
+    margin     : 0;
+    padding    : 60px 0;
+}
+
+a.btn-area-chart
+{
+    display : inline-block;
+    margin  : 0 0 0 10px;
+    border  : 0;
+}
+
+a.btn-area-chart img
+{
+    border : 0;
 }
