@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Validator
+ * Provides validation checks via static functions wherever needed in the app
  */
 
 

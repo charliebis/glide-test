@@ -34,7 +34,7 @@ $dataEndDateTime = date('Y-m-d\TH:i:s') . '.000Z';
 //  Update the local CSV file from remote data
 $cdObj = new CalorificData($application->dbConn);
 echo 'Updating CSV data from remote source... ';
-$csvCached = $cdObj->updateCsvFromRemote($dataStartDateTime, $dataEndDateTime);
+$csvCached = $cdObj->fetchRemoteCsv($dataStartDateTime, $dataEndDateTime);
 //  Check the result of the data update
 if (!empty($csvCached['error']))
     die('Error updating from remote source: ' . $csvCached['error']);

@@ -32,14 +32,18 @@ class CalorificData
         ];
     }
 
-
+    /**
+     * Deletes the cached CSV file that was fetched from the remote source
+     */
     public function deleteCachedCsvFile()
     {
         if (file_exists($this->csvCachedFilePath))
             unlink($this->csvCachedFilePath);
     }
 
-
+    /**
+     * Empties the calorific values data tables. Used before importing new data
+     */
     public function emptyDataTables()
     {
         try
@@ -60,7 +64,9 @@ class CalorificData
         }
     }
 
-
+    /**
+     * Saves a row to the areas table. One for each area found in the CSV data
+     */
     public function saveAreaRow($areaName)
     {
         try
@@ -84,7 +90,9 @@ class CalorificData
         }
     }
 
-
+    /**
+     * Saves a row to the calorific_value_data table. One for each data item found in the CSV data
+     */
     public function saveCalorificValue($data)
     {
         try
@@ -112,7 +120,9 @@ class CalorificData
         }
     }
 
-
+    /**
+     * Saves a row to the process_log table. One for execution of the import script. Logs the results of the script run
+     */
     public function saveLogRecord($totals, $processStart, $processEnd)
     {
         try
@@ -140,8 +150,10 @@ class CalorificData
         }
     }
 
-
-    public function updateCsvFromRemote($dateStart, $dateEnd)
+    /**
+     * Saves a row to the process_log table. One for execution of the import script. Logs the results of the script run
+     */
+    public function fetchRemoteCsv($dateStart, $dateEnd)
     {
         //  Set start and end dates in post data
         $this->csvPostData['FromUtcDateTime'] = $dateStart;
