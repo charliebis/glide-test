@@ -9,6 +9,7 @@ Calorie Data Viewer App.
 3. Run the queries in create_tables.sql to create the tables.
 4. Create a file called application.ini in the project root. Copy/paste the following into the file:
 
+    ```ini
     [general]    
     installation_path = YOUR_PROJECT_ROOT_PATH    
     site_url = YOUR_SITE_ROOT_URL
@@ -18,7 +19,7 @@ Calorie Data Viewer App.
     db_database = YOUR_DB_DATABASE    
     db_user = YOUR_DB_USER
     db_pass = 'YOUR_DB_PASS'
-
+    ```
     Swap the YOUR_* parts with your own settings.
 
     installation_path must be the full path to the project root dir, e.g.
