@@ -1,3 +1,11 @@
+## This is a technical test project. Part of the recruitment process for my earlier role at Glide Utilities.
+
+The brief for the test was to create a front and back end for a viewer for Calorific values, as retrieved from a remote source via feed fetch/scrape. The data was to be stored in a MySQL database and rendered in a web front-end.
+
+I've left this on my public GitHub profile in case you want to see what I can do using PHP.
+
+The test implements a very basic MVC system, without using an off the shelf framework. This was to demonstrate my understanding of the concepts of PHP frameworks, the MVC pattern and OOP in general.
+
 # glide-test
 
 Calorie Data Viewer App.
